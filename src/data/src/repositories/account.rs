@@ -6,15 +6,33 @@ use common::{
 
 pub fn read_account(uid: String) -> (&'static str, Option<Params>) {
   let query = r#"
-    MATCH (acc:Account)-[:REGISTERED]->(cke:CrossKycEmailRegistered)
-    WITH apoc.agg.maxItems(cke, cke.block_number) AS result
-    return COUNT(acc)
+    MATCH (acc:Account {uid: $uid})
+    return acc
   "#;
 
   let params = create_params(vec![
     ("uid", Value::String(uid)),
   ]);
 
+  (query, params)
+}
+
+pub fn create_account(uid: String, mnemonic: String) -> (&'static str, Option<Params>) {
+  let query = r#"
+    MERGE (acc:Account {uid: $uid})
+    ON MATCH SET acc += {
+      mnemonic:$mnemonic
+    } 
+    ON CREATE SET acc += {
+      mnemonic:$mnemonic
+    }
+    RETURN 1
+  "#;
+
+  let params = create_params(vec![
+    ("uid", Value::String(uid)),
+    ("mnemonic", Value::String(mnemonic)),
+  ]);
 
   (query, params)
 }
