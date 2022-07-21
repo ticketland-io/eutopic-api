@@ -17,7 +17,7 @@ pub fn read_account(uid: String) -> (&'static str, Option<Params>) {
   (query, params)
 }
 
-pub fn create_account(uid: String, mnemonic: String) -> (&'static str, Option<Params>) {
+pub fn upsert_account(uid: String, mnemonic: String) -> (&'static str, Option<Params>) {
   let query = r#"
     MERGE (acc:Account {uid: $uid})
     ON MATCH SET acc += {
