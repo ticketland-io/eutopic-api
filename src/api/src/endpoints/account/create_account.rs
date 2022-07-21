@@ -32,8 +32,7 @@ pub async fn exec(store: web::Data<Store>, body: web::Json<Body>) -> HttpRespons
 
       HttpResponse::Created().finish()
     },
-    Err(error) => {
-      println!("{:?}", error);
+    Err(_) => {
       unauthorized_error()
     },
   }
