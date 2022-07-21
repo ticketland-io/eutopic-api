@@ -7,7 +7,7 @@ use common::{
 pub fn read_account(uid: String) -> (&'static str, Option<Params>) {
   let query = r#"
     MATCH (acc:Account {uid: $uid})
-    return acc
+    RETURN acc{.*}
   "#;
 
   let params = create_params(vec![
@@ -26,7 +26,7 @@ pub fn upsert_account(uid: String, mnemonic: String) -> (&'static str, Option<Pa
     ON CREATE SET acc += {
       mnemonic:$mnemonic
     }
-    RETURN 1
+    RETURN acc{.*}
   "#;
 
   let params = create_params(vec![

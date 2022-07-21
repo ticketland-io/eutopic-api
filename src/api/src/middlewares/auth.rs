@@ -104,7 +104,10 @@ where
   
             return Ok(srv.call(req).await?)
           },
-          Err(_) => return Err(ErrorUnauthorized("Unauthorized")),
+          Err(error) => {
+            println!("{}", error);
+            return Err(ErrorUnauthorized("Unauthorized"))
+          }
         }
       }
     )
