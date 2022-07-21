@@ -7,6 +7,7 @@ use eutopic_api::{
   endpoints::{
     account::config::config as account_config,
   },
+  middlewares::auth::AuthnMiddlewareFactory,
 };
 
 #[actix_web::main]
@@ -32,7 +33,11 @@ async fn main() -> std::io::Result<()> {
       .app_data(store.clone())
       .wrap(Cors::permissive())
       .wrap(middleware::Logger::default())
-      .service(web::scope("/accounts").configure(account_config))
+      .service(
+        web::scope("/accounts")
+          .wrap(AuthnMiddlewareFactory)
+          .configure(account_config)
+      )
       .route("/", web::get().to(|| HttpResponse::Ok()))
   })
   .bind(format!("0.0.0.0:{}", port))?

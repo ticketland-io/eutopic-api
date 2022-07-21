@@ -649,6 +649,7 @@ dependencies = [
  "dotenv",
  "env_logger",
  "fireauth",
+ "futures-util",
  "serde",
  "serde_json",
  "serde_qs",
