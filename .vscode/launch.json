@@ -1,0 +1,67 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug unit tests in library 'eutopic-api'",
+      "cargo": {
+        "args": [
+          "test",
+          "--no-run",
+          "--lib",
+          "--package=eutopic-api"
+        ],
+        "filter": {
+          "name": "eutopic-api",
+          "kind": "lib"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug executable 'eutopic-api'",
+      "cargo": {
+        "args": [
+          "build",
+          "--bin=eutopic-api",
+          "--package=eutopic-api"
+        ],
+        "filter": {
+          "name": "eutopic-api",
+          "kind": "bin"
+        }
+      },
+      "args": [],
+      "env": {
+        "ENV": "development"
+      },
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug unit tests in executable 'eutopic-api'",
+      "cargo": {
+        "args": [
+          "test",
+          "--no-run",
+          "--bin=eutopic-api",
+          "--package=eutopic-api"
+        ],
+        "filter": {
+          "name": "eutopic-api",
+          "kind": "bin"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}
