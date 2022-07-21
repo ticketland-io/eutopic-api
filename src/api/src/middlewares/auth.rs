@@ -2,7 +2,6 @@ use std::{
   future::{ready, Ready as StdReady},
   rc::Rc,
 };
-use serde::{Deserialize};
 use actix_web::{
   web,
   HttpMessage,
@@ -57,11 +56,6 @@ where
     }
 }
 
-#[derive(Deserialize)]
-pub struct Body {
-  access_token: String,
-}
-
 pub struct AuthnMiddleware<S> {
   service: Rc<S>,
 }
@@ -82,13 +76,28 @@ where
     Box::pin(
       async move {
         let store = req.extract::<web::Data<Store>>().await;
-        let body = req.extract::<web::Json<Body>>().await;
-
-        if body.is_err() {
+        let headers = req.headers();
+        let bearer = headers.get("Authorization");
+        
+        if bearer.is_none() {
           return Err(ErrorUnauthorized("Unauthorized"))
         }
+        
+        let mut iter = bearer.unwrap().to_str().unwrap().split_whitespace();
+        
+        if let Some(prefix) = iter.next() {
+          if prefix != "Bearer" {
+            return Err(ErrorUnauthorized("Unauthorized"))
+          }
+        }
 
-        match store.unwrap().firebase_auth.get_user_info(&body.unwrap().access_token).await {
+        let access_token = if let Some(access_token) = iter.next() {
+          access_token
+        } else {
+          return Err(ErrorUnauthorized("Unauthorized"))
+        };
+        
+        match store.unwrap().firebase_auth.get_user_info(&access_token).await {
           Ok(user) => {
             // make the user available to the downstream handlers
             req.extensions_mut().insert(AuthData {user});

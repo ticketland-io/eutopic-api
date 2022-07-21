@@ -6,7 +6,7 @@ use super::{
 
 pub fn config(cfg: &mut web::ServiceConfig) {
   cfg.service(
-    web::resource("/")
+    web::resource("")
     .route(web::post().to(create_account::exec))
     // .route(
     //   web::get()
