@@ -10,3 +10,4 @@ actix = "0.13.0"
 common = { path = "../common"}
 bolt-client = "0.10.1"
 bolt-proto = "0.11.0"
+serde = "1.0"

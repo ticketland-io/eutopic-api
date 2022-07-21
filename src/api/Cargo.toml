@@ -22,3 +22,4 @@ thiserror = "1.0.31"
 anyhow = "1.0.0"
 fireauth =  { git = "https://github.com/ticketland-io/fireauth", version = "0.1.6" }
 common = { path = "../common"}
+data = { path = "../data"}

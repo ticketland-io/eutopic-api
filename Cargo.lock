@@ -578,6 +578,7 @@ dependencies = [
  "bolt-client",
  "bolt-proto",
  "common",
+ "serde",
 ]
 
 [[package]]
@@ -644,6 +645,7 @@ dependencies = [
  "bolt-client",
  "bolt-proto",
  "common",
+ "data",
  "dotenv",
  "env_logger",
  "fireauth",

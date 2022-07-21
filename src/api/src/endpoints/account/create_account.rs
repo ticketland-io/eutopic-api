@@ -14,6 +14,7 @@ pub struct Body {
 pub async fn exec(store: web::Data<Store>, body: web::Json<Body>) -> HttpResponse {
   match store.firebase_auth.get_user_info(&body.firebase_token_id).await {
     Ok(user) => {
+      // 
       HttpResponse::Ok().body(serde_json::to_string(&user).expect("unexpected user data received from firebase"))
     },
     Err(error) => {
