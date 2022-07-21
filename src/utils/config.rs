@@ -7,6 +7,7 @@ pub struct Config {
   pub neo4j_username: String,
   pub neo4j_password: String,
   pub neo4j_database: Option<String>,
+  pub firebase_auth_key: String,
 }
 
 impl Config {
@@ -19,6 +20,7 @@ impl Config {
         neo4j_username: env::var("NEO4J_USERNAME").unwrap(),
         neo4j_password: env::var("NEO4J_PASSWORD").unwrap(),
         neo4j_database: env::var("NEO4J_DATABASE").ok(),
+        firebase_auth_key: env::var("FIREBASE_API_KEY").unwrap(),
       }
     )
   }
