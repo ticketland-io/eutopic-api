@@ -7,25 +7,6 @@
     {
       "type": "lldb",
       "request": "launch",
-      "name": "Debug unit tests in library 'eutopic-api'",
-      "cargo": {
-        "args": [
-          "test",
-          "--no-run",
-          "--lib",
-          "--package=eutopic-api"
-        ],
-        "filter": {
-          "name": "eutopic-api",
-          "kind": "lib"
-        }
-      },
-      "args": [],
-      "cwd": "${workspaceFolder}"
-    },
-    {
-      "type": "lldb",
-      "request": "launch",
       "name": "Debug executable 'eutopic-api'",
       "cargo": {
         "args": [
@@ -42,26 +23,7 @@
       "env": {
         "ENV": "development"
       },
-      "cwd": "${workspaceFolder}"
-    },
-    {
-      "type": "lldb",
-      "request": "launch",
-      "name": "Debug unit tests in executable 'eutopic-api'",
-      "cargo": {
-        "args": [
-          "test",
-          "--no-run",
-          "--bin=eutopic-api",
-          "--package=eutopic-api"
-        ],
-        "filter": {
-          "name": "eutopic-api",
-          "kind": "bin"
-        }
-      },
-      "args": [],
-      "cwd": "${workspaceFolder}"
+      "cwd": "${workspaceFolder}/src/api"
     }
   ]
 }

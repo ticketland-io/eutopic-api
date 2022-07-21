@@ -473,13 +473,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "common"
-version = "0.1.0"
-dependencies = [
- "thiserror",
-]
-
-[[package]]
 name = "convert_case"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -623,7 +616,6 @@ dependencies = [
  "anyhow",
  "bolt-client",
  "bolt-proto",
- "common",
  "dotenv",
  "env_logger",
  "fireauth",
@@ -642,16 +634,6 @@ dependencies = [
  "instant",
 ]
 
-[[package]]
-name = "fireauth"
-version = "0.1.6"
-source = "git+https://github.com/ticketland-io/fireauth#60c6c42ce02e56edc49e8b69c539f9a7bbca8e75"
-dependencies = [
- "chrono",
- "reqwest",
- "serde",
- "thiserror",
-]
 
 [[package]]
 name = "firestorm"

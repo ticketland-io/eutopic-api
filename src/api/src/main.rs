@@ -4,6 +4,9 @@ use env_logger::Env;
 use std::{env, panic, process};
 use eutopic_api::{
   utils::store::Store,
+  endpoints::{
+    account::config::config as account_config,
+  },
 };
 
 #[actix_web::main]
@@ -29,6 +32,7 @@ async fn main() -> std::io::Result<()> {
       .app_data(store.clone())
       .wrap(Cors::permissive())
       .wrap(middleware::Logger::default())
+      .service(web::scope("/accounts").configure(account_config))
       .route("/", web::get().to(|| HttpResponse::Ok()))
   })
   .bind(format!("0.0.0.0:{}", port))?
