@@ -11,6 +11,8 @@ pub enum Error {
   Neo4jError(String),
   #[error("Actor mailbox error")]
   MailboxError(String),
+  #[error("No records found")]
+  EmptyDbResult,
 }
 
 pub fn map_bolt_result_err(result: Result<(Vec<Record>, Message), Error>) -> Result<Vec<Record>, Error> {

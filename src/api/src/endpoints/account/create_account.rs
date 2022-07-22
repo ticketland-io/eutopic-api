@@ -29,15 +29,17 @@ pub async fn exec(
 ) -> HttpResponse {
   let (query, db_query_params) = read_account(auth.user.local_id.clone());
 
-  let account = send_read(Arc::clone(&store.neo4j), query, db_query_params)
+  let account_result = send_read(Arc::clone(&store.neo4j), query, db_query_params)
   .await
   .map(|db_result| {
-    TryInto::<Account>::try_into(db_result).unwrap()
+    TryInto::<Account>::try_into(db_result)
   });
 
   // if account exist then simply return the account
-  if let Ok(account) = account {
-    return HttpResponse::Ok().body(serde_json::to_string(&account).expect("cannot serialize account"))
+  if let Ok(account) = account_result {
+    if let Ok(account) = account {
+      return HttpResponse::Ok().body(serde_json::to_string(&account).expect("cannot serialize account"))
+    }
   }
   
   // else create and store the encrypted mnemonic

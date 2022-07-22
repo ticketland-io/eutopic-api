@@ -7,9 +7,10 @@ use data::{
     read_account,
   },
 };
+use common::error::Error;
 use crate::{
   utils::store::Store,
-  middlewares::auth::AuthData,
+  middlewares::auth::AuthData, services::api_helpers::internal_server_error,
 };
 
 pub async fn exec(
@@ -18,15 +19,17 @@ pub async fn exec(
 ) -> HttpResponse {
   let (query, db_query_params) = read_account(auth.user.local_id);
 
-  let account = send_read(Arc::clone(&store.neo4j), query, db_query_params)
+  send_read(Arc::clone(&store.neo4j), query, db_query_params)
     .await
     .map(|db_result| {
-      TryInto::<Account>::try_into(db_result).unwrap()
-    });
-
-  if let Ok(account) = account {
-    return HttpResponse::Ok().json(account)
-  }
-  
-  HttpResponse::NotFound().finish()
+      TryInto::<Account>::try_into(db_result)
+    })
+    .map(|account| {
+      if let Ok(account) = account {
+        HttpResponse::Ok().json(account)
+      } else {
+        HttpResponse::NotFound().finish()
+      }
+    })
+    .unwrap_or_else(|error: Error| internal_server_error(Some(error)))
 }

@@ -4,6 +4,7 @@ use std::{
 };
 use bolt_proto::value::Value;
 use serde::{Deserialize, Serialize};
+use common::error::Error;
 use crate::types::Neo4jResult;
 
 #[derive(Serialize, Deserialize, Default)]
@@ -13,9 +14,13 @@ pub struct Account {
 }
 
 impl TryFrom<Neo4jResult> for Account {
-  type Error = ();
+  type Error = Error;
 
   fn try_from(v: Neo4jResult) -> Result<Self, Self::Error> {
+    if v.0.len() == 0 {
+      return Err(Error::EmptyDbResult)
+    }
+
     let value = v.0.get(0).unwrap().clone();
 
     let account = match value {

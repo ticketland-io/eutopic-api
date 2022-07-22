@@ -15,6 +15,7 @@ pub async fn send_read(
 ) -> Result<Neo4jResult, Error> {
   let action = || {
     let params = params.clone();
+   
     neo4j.send(Read {
       query: String::from(query),
       params,
