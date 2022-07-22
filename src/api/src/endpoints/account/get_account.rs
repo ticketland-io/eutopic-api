@@ -24,9 +24,9 @@ pub async fn exec(
       TryInto::<Account>::try_into(db_result).unwrap()
     });
 
-  if let Ok(_) = account {
-    return HttpResponse::NotFound().finish()
+  if let Ok(account) = account {
+    return HttpResponse::Ok().json(account)
   }
   
-  HttpResponse::Ok().json(account.unwrap())
+  HttpResponse::NotFound().finish()
 }
