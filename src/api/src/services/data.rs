@@ -26,7 +26,7 @@ pub trait QueryStringTrait {
   fn limit(&self) -> Option<u32>;
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Default)]
 pub struct QueryString {
   pub skip: Option<u32>,
   pub limit: Option<u32>
