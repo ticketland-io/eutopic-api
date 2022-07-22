@@ -1,5 +1,5 @@
 use actix_cors::Cors;
-use actix_web::{middleware, web, App, HttpResponse, HttpServer};
+use actix_web::{middleware, web, http, App, HttpResponse, HttpServer};
 use env_logger::Env;
 use std::{env, panic, process};
 use eutopic_api::{
@@ -25,13 +25,21 @@ async fn main() -> std::io::Result<()> {
 
   let store = web::Data::new(Store::new().await);
   let port = store.config.port;
+  let cors_origin = store.config.cors_origin.clone();
 
   env_logger::Builder::from_env(Env::default().default_filter_or("info")).init();
 
   HttpServer::new(move || {
+    let cors = Cors::default()
+      .allowed_origin(&cors_origin)
+      .allowed_methods(vec!["GET", "POST"])
+      .allowed_headers(vec![http::header::AUTHORIZATION, http::header::ACCEPT])
+      .allowed_header(http::header::CONTENT_TYPE)
+      .max_age(3600);
+
     App::new()
       .app_data(store.clone())
-      .wrap(Cors::permissive())
+      .wrap(cors)
       .wrap(middleware::Logger::default())
       .service(
         web::scope("/accounts")

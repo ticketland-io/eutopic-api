@@ -8,6 +8,7 @@ pub struct Config {
   pub neo4j_password: String,
   pub neo4j_database: Option<String>,
   pub firebase_auth_key: String,
+  pub cors_origin: String,
 }
 
 impl Config {
@@ -21,6 +22,7 @@ impl Config {
         neo4j_password: env::var("NEO4J_PASSWORD").unwrap(),
         neo4j_database: env::var("NEO4J_DATABASE").ok(),
         firebase_auth_key: env::var("FIREBASE_API_KEY").unwrap(),
+        cors_origin: env::var("CORS_ORIGIN").unwrap(),
       }
     )
   }
