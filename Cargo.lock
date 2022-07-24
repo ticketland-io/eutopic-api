@@ -1673,7 +1673,7 @@ dependencies = [
 [[package]]
 name = "fireauth"
 version = "0.1.6"
-source = "git+https://github.com/ticketland-io/fireauth#60c6c42ce02e56edc49e8b69c539f9a7bbca8e75"
+source = "git+https://github.com/Apocentre/fireauth#60c6c42ce02e56edc49e8b69c539f9a7bbca8e75"
 dependencies = [
  "chrono",
  "reqwest",
