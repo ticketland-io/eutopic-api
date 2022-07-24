@@ -2,12 +2,14 @@ use actix_cors::Cors;
 use actix_web::{middleware, web, http, App, HttpResponse, HttpServer};
 use env_logger::Env;
 use std::{env, panic, process};
+use api_helpers::{
+  middleware::auth::AuthnMiddlewareFactory,
+};
 use eutopic_api::{
   utils::store::Store,
   endpoints::{
     account::config::config as account_config,
   },
-  middlewares::auth::AuthnMiddlewareFactory,
 };
 
 #[actix_web::main]

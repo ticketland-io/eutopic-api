@@ -9,12 +9,12 @@ use data::{
     upsert_account
   },
 };
+use api_helpers::middleware::auth::AuthData;
 use crate::{
   utils::store::Store,
   services::{
     data::{exec_basic_db_write_endpoint},
   },
-  middlewares::auth::AuthData,
 };
 
 #[derive(Deserialize)]

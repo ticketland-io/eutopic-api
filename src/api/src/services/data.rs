@@ -8,7 +8,7 @@ use data::{
   types::{Neo4jResult},
 };
 use crate::utils::store::Store;
-use crate::services::api_helpers::internal_server_error;
+use api_helpers::services::http::internal_server_error;
 
 /// Example `impl_query_string!(QueryString);`
 #[macro_export]

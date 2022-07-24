@@ -1,14 +1,14 @@
 use std::sync::Arc;
 use actix::prelude::*;
-use fireauth::FireAuth;
 use common::actor::{neo4j::Neo4jActor};
+use api_helpers::utils::store::Store as ApiStore;
 use crate::services::new_user_queue::NewUserQueue;
 
 use super::config::Config;
 
 pub struct Store {
   pub config: Config,
-  pub firebase_auth: FireAuth,
+  pub api_store: ApiStore,
   pub neo4j: Arc<Addr<Neo4jActor>>,
   pub new_user_queue: NewUserQueue,
 }
@@ -16,7 +16,7 @@ pub struct Store {
 impl Store {
   pub async fn new() -> Self {
     let config = Config::new().unwrap();
-    let firebase_auth = fireauth::FireAuth::new(config.firebase_auth_key.clone());
+    let api_store = ApiStore::new(config.firebase_auth_key.clone());
     let new_user_queue = NewUserQueue::new(
       config.rabbitmq_uri.clone(),
       config.exchange_name.clone(),
@@ -39,7 +39,7 @@ impl Store {
 
     Self {
       config,
-      firebase_auth,
+      api_store,
       neo4j,
       new_user_queue,
     }
