@@ -1632,7 +1632,6 @@ dependencies = [
  "data",
  "dotenv",
  "env_logger",
- "futures-util",
  "serde",
  "serde_json",
  "serde_qs",
