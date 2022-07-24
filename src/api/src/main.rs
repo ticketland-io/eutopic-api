@@ -28,10 +28,13 @@ async fn main() -> std::io::Result<()> {
   let store = web::Data::new(Store::new().await);
   let port = store.config.port;
   let cors_origin = store.config.cors_origin.clone();
-
+  let firebase_auth_key = store.config.firebase_auth_key.clone();
+  
   env_logger::Builder::from_env(Env::default().default_filter_or("info")).init();
 
   HttpServer::new(move || {
+    let authn_middleware = AuthnMiddlewareFactory::new(firebase_auth_key.clone());
+
     let cors = Cors::default()
       .allowed_origin(&cors_origin)
       .allowed_methods(vec!["GET", "POST"])
@@ -45,7 +48,7 @@ async fn main() -> std::io::Result<()> {
       .wrap(middleware::Logger::default())
       .service(
         web::scope("/accounts")
-          .wrap(AuthnMiddlewareFactory)
+          .wrap(authn_middleware)
           .configure(account_config)
       )
       .route("/", web::get().to(|| HttpResponse::Ok()))
