@@ -50,7 +50,7 @@ pub struct Neo4jBaseResponse {
 pub type DbQueryBuilder = Box<dyn Fn() -> (&'static str, Option<Params>)>;
 
 pub async fn exec_basic_db_read_endpoint(
-  store: web::Data<Store>,
+  store: &web::Data<Store>,
   qs: Box<dyn QueryStringTrait>,
   db_query_builder: DbQueryBuilder
 ) -> HttpResponse {
@@ -76,7 +76,7 @@ pub async fn exec_basic_db_read_endpoint(
 }
 
 pub async fn exec_basic_db_read_endpoint_no_qs(
-  store: web::Data<Store>,
+  store: &web::Data<Store>,
   db_query_builder: DbQueryBuilder
 ) -> HttpResponse {
   let (query, db_query_params) = db_query_builder();
@@ -94,7 +94,7 @@ pub async fn exec_basic_db_read_endpoint_no_qs(
 }
 
 pub async fn exec_basic_db_write_endpoint(
-  store: web::Data<Store>,
+  store: &web::Data<Store>,
   db_query_builder: DbQueryBuilder
 ) -> HttpResponse {
   let (query, db_query_params) = db_query_builder();

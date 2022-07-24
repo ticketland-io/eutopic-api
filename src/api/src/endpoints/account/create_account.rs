@@ -20,6 +20,7 @@ use crate::{
 #[derive(Deserialize)]
 pub struct Body {
   mnemonic: String,
+  address: String,
 }
 
 pub async fn exec(
@@ -42,9 +43,10 @@ pub async fn exec(
     }
   }
   
+  let address = body.address.clone();
   // else create and store the encrypted mnemonic
   exec_basic_db_write_endpoint(
-    store,
+    &store,
     Box::new(move || {
       upsert_account(
         auth.user.local_id.clone(),
@@ -54,6 +56,7 @@ pub async fn exec(
   ).await;
 
   // Push message to Rabbitmq
-  
+  store.new_user_queue.on_new_user(address).await;
+
   HttpResponse::Created().finish()
 }

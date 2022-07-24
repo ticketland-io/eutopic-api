@@ -32,7 +32,7 @@ impl Config {
         rabbitmq_uri: env::var("RABBITMQ_URI").unwrap(),
         exchange_name: env::var("EXCHANGE_NAME").unwrap(),
         queue_name: env::var("QUEUE_NAME").unwrap(),
-        routing_key: env::var("ROUTE_KEY").unwrap(),
+        routing_key: env::var("ROUTING_KEY").unwrap(),
         retry_ttl: env::var("RETRY_TTL").unwrap().parse::<u16>().unwrap(),
       }
     )
