@@ -10,14 +10,14 @@ pub struct NewUserQueue {
 
 impl NewUserQueue {
   pub async fn new(
-    rabbitmq_url: String,
+    rabbitmq_uri: String,
     exchange_name: String,
     queue_name: String,
     routing_key: String,
     retry_ttl: u16,
   ) -> Self {
     let producer = RetryProducer::new(
-      &rabbitmq_url,
+      &rabbitmq_uri,
       &exchange_name,
       &queue_name,
       &routing_key,
