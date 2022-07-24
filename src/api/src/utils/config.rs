@@ -9,6 +9,12 @@ pub struct Config {
   pub neo4j_database: Option<String>,
   pub firebase_auth_key: String,
   pub cors_origin: String,
+  // Rabbitmq envs
+  pub rabbitmq_uri: String,
+  pub exchange_name: String,
+  pub queue_name: String,
+  pub routing_key: String,
+  pub retry_ttl: u16,
 }
 
 impl Config {
@@ -23,6 +29,11 @@ impl Config {
         neo4j_database: env::var("NEO4J_DATABASE").ok(),
         firebase_auth_key: env::var("FIREBASE_API_KEY").unwrap(),
         cors_origin: env::var("CORS_ORIGIN").unwrap(),
+        rabbitmq_uri: env::var("RABBITMQ_URI").unwrap(),
+        exchange_name: env::var("EXCHANGE_NAME").unwrap(),
+        queue_name: env::var("QUEUE_NAME").unwrap(),
+        routing_key: env::var("ROUTE_KEY").unwrap(),
+        retry_ttl: env::var("RETRY_TTL").unwrap().parse::<u16>().unwrap(),
       }
     )
   }

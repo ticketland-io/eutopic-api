@@ -25,5 +25,5 @@ anyhow = "1.0.0"
 common = { path = "../common"}
 data = { path = "../data"}
 amqp-helpers = { git = "https://github.com/ticketland-io/amqp-helpers", version = "0.1.4" }
-ticketland-signdrop = { git = "https://github.com/ticketland-io/ticketland-signdrop" }
+ticketland-signdrop = { git = "https://github.com/ticketland-io/ticketland-signdrop", version = "0.1.1" }
 borsh = "0.9.3"
