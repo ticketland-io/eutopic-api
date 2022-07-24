@@ -53,5 +53,7 @@ pub async fn exec(
     })
   ).await;
 
+  // Push message to Rabbitmq
+  
   HttpResponse::Created().finish()
 }
