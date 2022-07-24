@@ -1070,6 +1070,7 @@ dependencies = [
 [[package]]
 name = "common"
 version = "0.1.0"
+source = "git+https://github.com/ticketland-io/common-rust#7c00a9dc28ac357976743c9fd8b98fe3db3472e2"
 dependencies = [
  "actix",
  "bolt-client",
