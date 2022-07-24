@@ -390,8 +390,8 @@ dependencies = [
 
 [[package]]
 name = "amqp-helpers"
-version = "0.1.4"
-source = "git+https://github.com/ticketland-io/amqp-helpers#7d57a6ecdc9cfc4cbab97bf091320151ea21eb26"
+version = "0.1.5"
+source = "git+https://github.com/ticketland-io/amqp-helpers#2bbf2114f6e745e7bbf50e235db443fd8a13c0b9"
 dependencies = [
  "futures-lite",
  "lapin",
@@ -4768,11 +4768,12 @@ dependencies = [
 
 [[package]]
 name = "ticketland-signdrop"
-version = "0.1.1"
-source = "git+https://github.com/ticketland-io/ticketland-signdrop#5795a7106c49a20c1b6010dde3ca7e96b94dcaa6"
+version = "0.1.2"
+source = "git+https://github.com/ticketland-io/ticketland-signdrop#1f4a91ca034e3e20d3d9d1afdd1b011526f8461d"
 dependencies = [
  "amqp-helpers",
  "borsh",
+ "dotenv",
  "lapin",
  "solana-client",
  "solana-sdk",
