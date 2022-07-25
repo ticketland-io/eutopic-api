@@ -9,12 +9,14 @@ use common_data::{
     upsert_account
   },
 };
-use api_helpers::middleware::auth::AuthData;
-use crate::{
-  utils::store::Store,
+use api_helpers::{
+  middleware::auth::AuthData,
   services::{
     data::{exec_basic_db_write_endpoint},
   },
+};
+use crate::{
+  utils::store::Store,
 };
 
 #[derive(Deserialize)]
@@ -46,7 +48,7 @@ pub async fn exec(
   let address = body.address.clone();
   // else create and store the encrypted mnemonic
   exec_basic_db_write_endpoint(
-    &store,
+    Arc::clone(&store.neo4j),
     Box::new(move || {
       upsert_account(
         auth.user.local_id.clone(),
