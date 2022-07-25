@@ -1,6 +1,6 @@
 use std::sync::Arc;
 use actix::prelude::*;
-use common::actor::{neo4j::Neo4jActor};
+use ticketland_core::actor::{neo4j::Neo4jActor};
 use crate::services::new_user_queue::NewUserQueue;
 
 use super::config::Config;

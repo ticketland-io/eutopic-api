@@ -1,7 +1,7 @@
 use std::sync::Arc;
 use actix_web::{web, HttpResponse};
 use serde::{Deserialize};
-use data::{
+use common_data::{
   helpers::{send_read},
   models::account::Account,
   repositories::account::{

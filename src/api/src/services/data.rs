@@ -2,8 +2,8 @@ use std::sync::Arc;
 use actix_web::{HttpResponse, web};
 use serde::{Serialize, Deserialize};
 use bolt_client::{Params};
-use common::error::Error;
-use data::{
+use ticketland_core::error::Error;
+use common_data::{
   helpers::{send_read, send_write},
   types::{Neo4jResult},
 };

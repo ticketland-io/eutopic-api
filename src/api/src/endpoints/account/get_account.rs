@@ -1,13 +1,13 @@
 use std::sync::Arc;
 use actix_web::{web, HttpResponse};
-use data::{
+use common_data::{
   helpers::{send_read},
   models::account::Account,
   repositories::account::{
     read_account,
   },
 };
-use common::error::Error;
+use ticketland_core::error::Error;
 use api_helpers::{
   middleware::auth::AuthData,
   services::http::internal_server_error,
