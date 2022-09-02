@@ -22,7 +22,7 @@ use crate::{
 #[derive(Deserialize)]
 pub struct Body {
   mnemonic: String,
-  address: String,
+  pubkey: String,
 }
 
 pub async fn exec(
@@ -45,7 +45,8 @@ pub async fn exec(
     }
   }
   
-  let address = body.address.clone();
+  let pubkey = body.pubkey.clone();
+
   // else create and store the encrypted mnemonic
   exec_basic_db_write_endpoint(
     Arc::clone(&store.neo4j),
@@ -53,12 +54,13 @@ pub async fn exec(
       upsert_account(
         auth.user.local_id.clone(),
         body.mnemonic.clone(),
+        body.pubkey.clone(),
       )
     })
   ).await;
 
   // Push message to Rabbitmq
-  store.new_user_queue.on_new_user(address).await;
+  store.new_user_queue.on_new_user(pubkey).await;
 
   HttpResponse::Created().finish()
 }
