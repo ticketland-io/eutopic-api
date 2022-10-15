@@ -34,9 +34,7 @@ pub async fn exec(
 
   let account_result = send_read(Arc::clone(&store.neo4j), query, db_query_params)
   .await
-  .map(|db_result| {
-    TryInto::<Account>::try_into(db_result)
-  });
+  .map(TryInto::<Account>::try_into);
 
   // if account exist then simply return the account
   if let Ok(account) = account_result {
