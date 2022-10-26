@@ -13,6 +13,7 @@ use api_helpers::{
   middleware::auth::AuthData,
   services::{
     data::{exec_basic_db_write_endpoint},
+    http::internal_server_error,
   },
 };
 use crate::{
@@ -58,7 +59,9 @@ pub async fn exec(
   ).await;
 
   // Push message to Rabbitmq
-  store.new_user_queue.on_new_user(pubkey).await;
+  store.new_user_queue.on_new_user(pubkey).await
+  .map(|_| HttpResponse::Created().finish())
+  .unwrap_or_else(|error| internal_server_error(Some(error.root_cause())))
 
-  HttpResponse::Created().finish()
+  
 }

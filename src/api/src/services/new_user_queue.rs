@@ -1,5 +1,6 @@
 use borsh::{BorshSerialize};
 use amqp_helpers::producer::retry_producer::RetryProducer;
+use eyre::Result;
 use ticketland_signdrop::model::NewUser;
 
 pub struct NewUserQueue {
@@ -22,7 +23,7 @@ impl NewUserQueue {
       &queue_name,
       &routing_key,
       retry_ttl,
-    ).await;
+    ).await.unwrap();
 
     Self {
       producer,
@@ -31,7 +32,7 @@ impl NewUserQueue {
     }
   }
 
-  pub async fn on_new_user(&self, sol_address: String) {
+  pub async fn on_new_user(&self, sol_address: String) -> Result<()> {
     let msg = NewUser { 
       sol_address 
     };
@@ -40,7 +41,6 @@ impl NewUserQueue {
       &self.exchange_name,
       &self.routing_key,
       &msg.try_to_vec().unwrap()
-    ).await;
-    
+    ).await
   }
 }
