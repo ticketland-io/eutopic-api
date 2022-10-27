@@ -52,6 +52,9 @@ pub async fn exec(
     Box::new(move || {
       upsert_account(
         auth.user.local_id.clone(),
+        auth.user.email.clone(),
+        auth.user.display_name.clone(),
+        auth.user.photo_url.clone(),
         body.mnemonic.clone(),
         body.pubkey.clone(),
       )
