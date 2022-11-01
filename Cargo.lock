@@ -429,25 +429,23 @@ checksum = "216261ddc8289130e551ddcd5ce8a064710c0d064a4d2895c67151c92b5443f6"
 
 [[package]]
 name = "api-helpers"
-version = "0.3.1"
-source = "git+https://github.com/ticketland-io/common-rust#3d9069402d2688ad4be8af78dae08bc4e230a2c5"
+version = "0.3.10"
+source = "git+https://github.com/ticketland-io/common-rust#2f6f237dc23577b7f29e8382d601c5503453e153"
 dependencies = [
  "actix",
  "actix-http",
  "actix-web",
  "async-trait",
- "base64 0.13.1",
  "bolt-client",
  "chrono",
  "common-data",
+ "eyre",
  "fireauth",
  "futures-util",
- "hex",
- "hmac 0.12.1",
  "qstring",
  "serde",
- "sha2 0.10.6",
  "ticketland-core",
+ "ticketland-crypto",
 ]
 
 [[package]]
@@ -1253,8 +1251,8 @@ dependencies = [
 
 [[package]]
 name = "common-data"
-version = "0.3.25"
-source = "git+https://github.com/ticketland-io/common-rust#3d9069402d2688ad4be8af78dae08bc4e230a2c5"
+version = "0.3.29"
+source = "git+https://github.com/ticketland-io/common-rust#2f6f237dc23577b7f29e8382d601c5503453e153"
 dependencies = [
  "actix",
  "bolt-client",
@@ -1751,6 +1749,7 @@ version = "1.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1e9c280362032ea4203659fc489832d0204ef09f247a0506f170dafcac08c369"
 dependencies = [
+ "serde",
  "signature",
 ]
 
@@ -1764,6 +1763,7 @@ dependencies = [
  "ed25519",
  "rand 0.7.3",
  "serde",
+ "serde_bytes",
  "sha2 0.9.9",
  "zeroize",
 ]
@@ -5188,7 +5188,7 @@ dependencies = [
 [[package]]
 name = "ticketland-core"
 version = "0.2.13"
-source = "git+https://github.com/ticketland-io/common-rust#3d9069402d2688ad4be8af78dae08bc4e230a2c5"
+source = "git+https://github.com/ticketland-io/common-rust#2f6f237dc23577b7f29e8382d601c5503453e153"
 dependencies = [
  "actix",
  "actix-multipart",
@@ -5214,6 +5214,23 @@ dependencies = [
  "tokio-retry",
  "tokio-util 0.7.4",
  "url",
+]
+
+[[package]]
+name = "ticketland-crypto"
+version = "0.1.11"
+source = "git+https://github.com/ticketland-io/common-rust#2f6f237dc23577b7f29e8382d601c5503453e153"
+dependencies = [
+ "base64 0.13.1",
+ "bs58",
+ "ed25519-dalek",
+ "eyre",
+ "hex",
+ "rand 0.7.3",
+ "ring",
+ "serde",
+ "serde_json",
+ "uuid 1.2.1",
 ]
 
 [[package]]
@@ -5690,6 +5707,10 @@ name = "uuid"
 version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "feb41e78f93363bb2df8b0e86a2ca30eed7806ea16ea0c790d757cf93f79be83"
+dependencies = [
+ "getrandom 0.2.8",
+ "rand 0.8.5",
+]
 
 [[package]]
 name = "value-bag"
