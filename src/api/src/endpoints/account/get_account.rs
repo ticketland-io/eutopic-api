@@ -13,7 +13,9 @@ pub async fn exec(
   auth: AuthData,
 ) -> Result<HttpResponse, Error> {
   let mut postgres = store.postgres.lock().unwrap();
-  let account = postgres.read_account_by_id(auth.user.local_id).await?;
+  let Ok(account) = postgres.read_account_by_id(auth.user.local_id).await else {
+    return Ok(HttpResponse::NotFound().finish())
+  };
   
   Ok(HttpResponse::Ok().json(account))
 }
