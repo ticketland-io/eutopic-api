@@ -1,20 +1,9 @@
-use std::sync::Arc;
 use actix_web::{web, HttpResponse};
 use serde::{Deserialize};
-use common_data::{
-  helpers::{send_read},
-  models::account::Account,
-  repositories::account::{
-    read_account,
-    upsert_account
-  },
-};
+use ticketland_core::error::Error;
+use ticketland_data::models::account::Account;
 use api_helpers::{
   middleware::auth::AuthData,
-  services::{
-    data::{exec_basic_db_write_endpoint},
-    http::internal_server_error,
-  },
 };
 use crate::{
   utils::store::Store,
@@ -30,41 +19,30 @@ pub async fn exec(
   store: web::Data<Store>,
   body: web::Json<Body>,
   auth: AuthData,
-) -> HttpResponse {
-  let (query, db_query_params) = read_account(auth.user.local_id.clone());
+) -> Result<HttpResponse, Error> {
+  let uid = auth.user.local_id.clone();
 
-  let account_result = send_read(Arc::clone(&store.neo4j), query, db_query_params)
-  .await
-  .map(TryInto::<Account>::try_into);
+  let mut postgres = store.postgres.lock().unwrap();
+  let Ok(account) = postgres.read_account_by_id(uid.clone()).await else {
+    // create and store the encrypted mnemonic
+    let pubkey = body.pubkey.clone();
+
+    postgres.upsert_account(Account {
+      uid,
+      created_at: None,
+      mnemonic: body.mnemonic.clone(),
+      pubkey,
+      name: Some(auth.user.display_name.clone()),
+      email: Some(auth.user.email.clone()),
+      photo_url: Some(auth.user.photo_url.clone()),
+    }).await?;
+
+    // Push message to Rabbitmq
+    store.new_user_queue.on_new_user(body.pubkey.clone()).await?;
+  
+    return Ok(HttpResponse::Created().finish())
+  };
 
   // if account exist then simply return the account
-  if let Ok(account) = account_result {
-    if let Ok(account) = account {
-      return HttpResponse::Ok().body(serde_json::to_string(&account).expect("cannot serialize account"))
-    }
-  }
-  
-  let pubkey = body.pubkey.clone();
-
-  // else create and store the encrypted mnemonic
-  exec_basic_db_write_endpoint(
-    Arc::clone(&store.neo4j),
-    Box::new(move || {
-      upsert_account(
-        auth.user.local_id.clone(),
-        auth.user.email.clone(),
-        auth.user.display_name.clone(),
-        auth.user.photo_url.clone(),
-        body.mnemonic.clone(),
-        body.pubkey.clone(),
-      )
-    })
-  ).await;
-
-  // Push message to Rabbitmq
-  store.new_user_queue.on_new_user(pubkey).await
-  .map(|_| HttpResponse::Created().finish())
-  .unwrap_or_else(|error| internal_server_error(Some(error.root_cause())))
-
-  
+  Ok(HttpResponse::Ok().json(account))
 }
