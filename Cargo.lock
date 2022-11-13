@@ -431,8 +431,8 @@ checksum = "216261ddc8289130e551ddcd5ce8a064710c0d064a4d2895c67151c92b5443f6"
 
 [[package]]
 name = "api-helpers"
-version = "0.3.18"
-source = "git+https://github.com/ticketland-io/common-rust#1f24a47e2eca73fe26a0846a6eeaf370e2ded715"
+version = "0.3.20"
+source = "git+https://github.com/ticketland-io/common-rust#e7a9af4016b5db18b7736a0c8f457953ee8e2074"
 dependencies = [
  "actix",
  "actix-http",
@@ -440,7 +440,6 @@ dependencies = [
  "async-trait",
  "bolt-client",
  "chrono",
- "common-data",
  "eyre",
  "fireauth",
  "futures-util",
@@ -448,6 +447,8 @@ dependencies = [
  "serde",
  "ticketland-core",
  "ticketland-crypto",
+ "ticketland-data",
+ "tokio",
 ]
 
 [[package]]
@@ -1249,19 +1250,6 @@ dependencies = [
  "pin-project-lite",
  "tokio",
  "tokio-util 0.7.4",
-]
-
-[[package]]
-name = "common-data"
-version = "0.3.42"
-source = "git+https://github.com/ticketland-io/common-rust#1f24a47e2eca73fe26a0846a6eeaf370e2ded715"
-dependencies = [
- "actix",
- "bolt-client",
- "bolt-proto",
- "serde",
- "serde-aux",
- "ticketland-core",
 ]
 
 [[package]]
@@ -5310,7 +5298,7 @@ dependencies = [
 [[package]]
 name = "ticketland-core"
 version = "0.2.15"
-source = "git+https://github.com/ticketland-io/common-rust#1f24a47e2eca73fe26a0846a6eeaf370e2ded715"
+source = "git+https://github.com/ticketland-io/common-rust#e7a9af4016b5db18b7736a0c8f457953ee8e2074"
 dependencies = [
  "actix",
  "actix-multipart",
@@ -5341,7 +5329,7 @@ dependencies = [
 [[package]]
 name = "ticketland-crypto"
 version = "0.1.15"
-source = "git+https://github.com/ticketland-io/common-rust#1f24a47e2eca73fe26a0846a6eeaf370e2ded715"
+source = "git+https://github.com/ticketland-io/common-rust#e7a9af4016b5db18b7736a0c8f457953ee8e2074"
 dependencies = [
  "base64 0.13.1",
  "bs58",
@@ -5358,8 +5346,8 @@ dependencies = [
 
 [[package]]
 name = "ticketland-data"
-version = "0.1.24"
-source = "git+https://github.com/ticketland-io/common-rust#1f24a47e2eca73fe26a0846a6eeaf370e2ded715"
+version = "0.1.26"
+source = "git+https://github.com/ticketland-io/common-rust#e7a9af4016b5db18b7736a0c8f457953ee8e2074"
 dependencies = [
  "chrono",
  "diesel",
