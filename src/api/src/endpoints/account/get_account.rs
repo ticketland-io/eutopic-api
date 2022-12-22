@@ -12,7 +12,7 @@ pub async fn exec(
   store: web::Data<Store>,
   auth: AuthData,
 ) -> Result<HttpResponse, Error> {
-  let mut postgres = store.postgres.lock().unwrap();
+  let mut postgres = store.pg_pool.connection().await?;
   let Ok(account) = postgres.read_account_by_id(auth.user.local_id).await else {
     return Ok(HttpResponse::NotFound().finish())
   };

@@ -1,12 +1,11 @@
-use std::sync::{Arc, Mutex};
-use ticketland_data::connection::PostgresConnection;
+use ticketland_data::connection_pool::ConnectionPool;
 use crate::services::new_user_queue::NewUserQueue;
 
 use super::config::Config;
 
 pub struct Store {
   pub config: Config,
-  pub postgres: Arc<Mutex<PostgresConnection>>,
+  pub pg_pool: ConnectionPool,
   pub new_user_queue: NewUserQueue,
 }
 
@@ -14,7 +13,7 @@ impl Store {
   pub async fn new() -> Self {
     let config = Config::new().unwrap();
 
-    let postgres = Arc::new(Mutex::new(PostgresConnection::new(&config.postgres_uri).await));
+    let pg_pool = ConnectionPool::new(&config.postgres_uri).await;
     let new_user_queue = NewUserQueue::new(
       config.rabbitmq_uri.clone(),
       config.exchange_name.clone(),
@@ -26,7 +25,7 @@ impl Store {
 
     Self {
       config,
-      postgres,
+      pg_pool,
       new_user_queue,
     }
   }

@@ -22,7 +22,7 @@ pub async fn exec(
 ) -> Result<HttpResponse, Error> {
   let uid = auth.user.local_id.clone();
 
-  let mut postgres = store.postgres.lock().unwrap();
+  let mut postgres = store.pg_pool.connection().await?;
   let Ok(account) = postgres.read_account_by_id(uid.clone()).await else {
     // create and store the encrypted mnemonic
     let pubkey = body.pubkey.clone();
