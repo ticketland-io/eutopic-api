@@ -33,7 +33,7 @@ pub async fn exec(
       mnemonic: body.mnemonic.clone(),
       pubkey,
       name: Some(auth.user.display_name.clone()),
-      email: Some(auth.user.email.clone()),
+      email: auth.user.email.clone(),
       photo_url: Some(auth.user.photo_url.clone()),
     }).await?;
 

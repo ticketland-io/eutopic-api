@@ -23,6 +23,7 @@ impl NewUserQueue {
       &queue_name,
       &routing_key,
       retry_ttl,
+      None,
     ).await.unwrap();
 
     Self {
