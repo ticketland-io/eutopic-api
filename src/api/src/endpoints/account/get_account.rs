@@ -18,10 +18,11 @@ pub async fn exec(
     return Ok(HttpResponse::NotFound().finish())
   };
 
+  let nonce = &account.pubkey.as_bytes()[..12];
   account.dapp_share = decrypt(
-    store.config.enc_key.as_bytes(),
-    account.pubkey.as_bytes(),
-    account.dapp_share.as_bytes(),
+    &store.config.enc_key[..32],
+    nonce,
+    account.dapp_share.as_ref(),
   )?;
 
   Ok(HttpResponse::Ok().json(account))

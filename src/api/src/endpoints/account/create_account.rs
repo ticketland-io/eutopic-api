@@ -11,6 +11,7 @@ use crate::{
 };
 
 #[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Body {
   dapp_share: String,
   pubkey: String,
@@ -27,9 +28,10 @@ pub async fn exec(
   let Ok(account) = postgres.read_account_by_id(uid.clone()).await else {
     // create and store the encrypted mnemonic
     let pubkey = body.pubkey.clone();
+    let nonce = pubkey.as_bytes();
     let dapp_share = encrypt(
-      store.config.enc_key.as_bytes(),
-      pubkey.as_bytes(),
+      &store.config.enc_key[..32],
+      &nonce[..12],
       body.dapp_share.as_bytes(),
     )?;
     
