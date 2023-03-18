@@ -11,6 +11,7 @@ pub struct Config {
   pub queue_name: String,
   pub routing_key: String,
   pub retry_ttl: u16,
+  pub enc_key: String,
 }
 
 impl Config {
@@ -26,6 +27,7 @@ impl Config {
         queue_name: env::var("QUEUE_NAME").unwrap(),
         routing_key: env::var("ROUTING_KEY").unwrap(),
         retry_ttl: env::var("RETRY_TTL").unwrap().parse::<u16>().unwrap(),
+        enc_key: env::var("ENC_KEY").unwrap(),
       }
     )
   }
