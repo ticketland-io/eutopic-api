@@ -40,9 +40,9 @@ pub async fn exec(
       created_at: None,
       dapp_share,
       pubkey,
-      name: Some(auth.user.display_name.clone()),
+      name: auth.user.display_name.clone(),
       email: auth.user.email.clone(),
-      photo_url: Some(auth.user.photo_url.clone()),
+      photo_url: auth.user.photo_url.clone(),
     }).await?;
 
     // Push message to Rabbitmq
