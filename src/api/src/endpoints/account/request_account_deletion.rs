@@ -31,8 +31,10 @@ pub async fn exec(
       delete_request.then(|| Utc::now().naive_utc())
     ).await?;
 
-    // Push message to Rabbitmq
-    store.delete_account_request_queue.on_new_delete_request(uid.clone()).await?;
+    // Push message to Rabbitmq if delete_request qs param is `true`
+    if (delete_request) {
+      store.delete_account_request_queue.on_new_delete_request(uid.clone()).await?;
+    }
 
     return Ok(HttpResponse::Ok().finish())
   };
