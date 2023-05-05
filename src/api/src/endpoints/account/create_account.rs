@@ -43,6 +43,8 @@ pub async fn exec(
       name: auth.user.display_name.clone(),
       email: auth.user.email.clone(),
       photo_url: auth.user.photo_url.clone(),
+      delete_request_at: None,
+      deleted_at: None,
     }).await?;
 
     // Push message to Rabbitmq
