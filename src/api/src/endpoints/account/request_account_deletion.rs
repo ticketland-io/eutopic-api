@@ -32,7 +32,7 @@ pub async fn exec(
     ).await?;
 
     // Push message to Rabbitmq if delete_request qs param is `true`
-    if (delete_request) {
+    if delete_request {
       store.delete_account_request_queue.on_new_delete_request(uid.clone()).await?;
     }
 

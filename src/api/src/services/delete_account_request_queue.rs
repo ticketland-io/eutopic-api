@@ -1,4 +1,4 @@
-use borsh::{BorshSerialize, BorshDeserialize};
+use borsh::BorshSerialize;
 use amqp_helpers::producer::retry_producer::RetryProducer;
 use eyre::Result;
 use ticketland_event_handler::{
