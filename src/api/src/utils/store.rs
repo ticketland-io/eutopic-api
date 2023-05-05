@@ -25,14 +25,14 @@ impl Store {
       config.queue_name.clone(),
       config.routing_key.clone(),
       config.retry_ttl,
-    ).await; 
+    ).await;
     let delete_account_request_queue = DeleteAccountRequestQueue::new(
       config.rabbitmq_uri.clone(),
       "delete_account_request".to_string(),
       "delete_account_request".to_string(),
       "delete_account_request.new".to_string(),
       config.retry_ttl,
-      Some(Duration::days(14).num_milliseconds() as i32)
+      Some(Duration::days(config.account_deletion_delay_days).num_milliseconds() as i32)
     ).await;
 
     Self {
