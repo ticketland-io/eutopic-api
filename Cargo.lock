@@ -443,14 +443,16 @@ dependencies = [
 
 [[package]]
 name = "amqp-helpers"
-version = "0.2.0"
-source = "git+https://github.com/ticketland-io/amqp-helpers?rev=7ec406e9d2037a7cefde38dae302502e66ad6432#7ec406e9d2037a7cefde38dae302502e66ad6432"
+version = "0.4.3"
+source = "git+https://github.com/ticketland-io/amqp-helpers?rev=78c9fcf#78c9fcf74fc8a2be8fdbb9151eaa1b39625a464b"
 dependencies = [
  "async-trait",
  "borsh",
  "eyre",
  "futures-lite",
  "lapin",
+ "log",
+ "tokio",
  "tokio-executor-trait",
  "tokio-reactor-trait",
 ]
@@ -458,7 +460,7 @@ dependencies = [
 [[package]]
 name = "amqp-helpers"
 version = "0.4.3"
-source = "git+https://github.com/ticketland-io/amqp-helpers?rev=78c9fcf#78c9fcf74fc8a2be8fdbb9151eaa1b39625a464b"
+source = "git+https://github.com/ticketland-io/amqp-helpers#78c9fcf74fc8a2be8fdbb9151eaa1b39625a464b"
 dependencies = [
  "async-trait",
  "borsh",
@@ -498,7 +500,7 @@ checksum = "9c7d0618f0e0b7e8ff11427422b64564d5fb0be1940354bfe2e0529b18a9d9b8"
 [[package]]
 name = "api-helpers"
 version = "0.3.26"
-source = "git+https://github.com/ticketland-io/common-rust?rev=0ba21c1#0ba21c12a607390263d146b8f6e4410e5d0728a4"
+source = "git+https://github.com/ticketland-io/common-rust#78018f54eb94f108e55d9a8c937f8588257296bc"
 dependencies = [
  "actix",
  "actix-http",
@@ -511,9 +513,9 @@ dependencies = [
  "futures-util",
  "qstring",
  "serde",
- "ticketland-core 0.2.19 (git+https://github.com/ticketland-io/common-rust)",
- "ticketland-crypto 0.1.19 (git+https://github.com/ticketland-io/common-rust)",
- "ticketland-data 0.1.55 (git+https://github.com/ticketland-io/common-rust)",
+ "ticketland-core",
+ "ticketland-crypto",
+ "ticketland-data",
  "tokio",
 ]
 
@@ -2213,7 +2215,7 @@ dependencies = [
  "actix-cors",
  "actix-rt",
  "actix-web",
- "amqp-helpers 0.4.3",
+ "amqp-helpers 0.4.3 (git+https://github.com/ticketland-io/amqp-helpers)",
  "api-helpers",
  "borsh",
  "chrono",
@@ -2223,9 +2225,9 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_qs",
- "ticketland-core 0.2.19 (git+https://github.com/ticketland-io/common-rust?rev=0ba21c1)",
- "ticketland-crypto 0.1.19 (git+https://github.com/ticketland-io/common-rust?rev=0ba21c1)",
- "ticketland-data 0.1.55 (git+https://github.com/ticketland-io/common-rust?rev=0ba21c1)",
+ "ticketland-core",
+ "ticketland-crypto",
+ "ticketland-data",
  "ticketland-event-handler",
  "ticketland-signdrop",
 ]
@@ -6205,39 +6207,7 @@ dependencies = [
 [[package]]
 name = "ticketland-core"
 version = "0.2.19"
-source = "git+https://github.com/ticketland-io/common-rust?rev=0ba21c1#0ba21c12a607390263d146b8f6e4410e5d0728a4"
-dependencies = [
- "actix",
- "actix-multipart",
- "actix-web",
- "arloader",
- "bolt-client",
- "bolt-proto",
- "bytes",
- "deadpool-redis",
- "eyre",
- "futures",
- "futures-util",
- "infer 0.9.0",
- "ipfs-api-backend-hyper",
- "jsonwebkey",
- "redis 0.22.3",
- "redlock-async",
- "reqwest",
- "ring",
- "rust-s3",
- "serde_json",
- "thiserror",
- "tokio",
- "tokio-retry",
- "tokio-util",
- "url",
-]
-
-[[package]]
-name = "ticketland-core"
-version = "0.2.19"
-source = "git+https://github.com/ticketland-io/common-rust#0ba21c12a607390263d146b8f6e4410e5d0728a4"
+source = "git+https://github.com/ticketland-io/common-rust#78018f54eb94f108e55d9a8c937f8588257296bc"
 dependencies = [
  "actix",
  "actix-multipart",
@@ -6269,26 +6239,7 @@ dependencies = [
 [[package]]
 name = "ticketland-crypto"
 version = "0.1.19"
-source = "git+https://github.com/ticketland-io/common-rust?rev=0ba21c1#0ba21c12a607390263d146b8f6e4410e5d0728a4"
-dependencies = [
- "aes-gcm-siv 0.11.1",
- "base64 0.13.1",
- "bs58",
- "ed25519-dalek",
- "eyre",
- "hex",
- "rand 0.7.3",
- "ring",
- "serde",
- "serde_json",
- "solana-sdk",
- "uuid 1.3.2",
-]
-
-[[package]]
-name = "ticketland-crypto"
-version = "0.1.19"
-source = "git+https://github.com/ticketland-io/common-rust#0ba21c12a607390263d146b8f6e4410e5d0728a4"
+source = "git+https://github.com/ticketland-io/common-rust#78018f54eb94f108e55d9a8c937f8588257296bc"
 dependencies = [
  "aes-gcm-siv 0.11.1",
  "base64 0.13.1",
@@ -6307,23 +6258,7 @@ dependencies = [
 [[package]]
 name = "ticketland-data"
 version = "0.1.55"
-source = "git+https://github.com/ticketland-io/common-rust?rev=0ba21c1#0ba21c12a607390263d146b8f6e4410e5d0728a4"
-dependencies = [
- "bigdecimal",
- "chrono",
- "diesel",
- "diesel-async",
- "diesel_as_jsonb",
- "eyre",
- "serde",
- "serde-aux",
- "serde_json",
-]
-
-[[package]]
-name = "ticketland-data"
-version = "0.1.55"
-source = "git+https://github.com/ticketland-io/common-rust#0ba21c12a607390263d146b8f6e4410e5d0728a4"
+source = "git+https://github.com/ticketland-io/common-rust#78018f54eb94f108e55d9a8c937f8588257296bc"
 dependencies = [
  "bigdecimal",
  "chrono",
@@ -6339,11 +6274,11 @@ dependencies = [
 [[package]]
 name = "ticketland-event-handler"
 version = "0.1.26"
-source = "git+https://github.com/ticketland-io/ticketland-event-handler?rev=9962092#99620927d24c908572d70cfb05625e76eb22b1bd"
+source = "git+https://github.com/ticketland-io/ticketland-event-handler#2de009650aacc5ceaf9af4dfb986d8657f9bedba"
 dependencies = [
  "actix",
  "actix-rt",
- "amqp-helpers 0.2.0",
+ "amqp-helpers 0.4.3 (git+https://github.com/ticketland-io/amqp-helpers)",
  "async-trait",
  "borsh",
  "bytes",
@@ -6360,8 +6295,8 @@ dependencies = [
  "serde_json",
  "solana-sdk",
  "solana-web3-rust",
- "ticketland-core 0.2.19 (git+https://github.com/ticketland-io/common-rust)",
- "ticketland-data 0.1.55 (git+https://github.com/ticketland-io/common-rust)",
+ "ticketland-core",
+ "ticketland-data",
  "tokio",
  "tokio-stream",
  "tokio-util",
@@ -6372,9 +6307,9 @@ dependencies = [
 [[package]]
 name = "ticketland-signdrop"
 version = "0.1.5"
-source = "git+https://github.com/ticketland-io/ticketland-signdrop?rev=e038733#e0387338def74be9447ad306df648a31b6701ad0"
+source = "git+https://github.com/ticketland-io/ticketland-signdrop#e0387338def74be9447ad306df648a31b6701ad0"
 dependencies = [
- "amqp-helpers 0.4.3",
+ "amqp-helpers 0.4.3 (git+https://github.com/ticketland-io/amqp-helpers?rev=78c9fcf)",
  "borsh",
  "dotenv",
  "eyre",
