@@ -1,21 +1,24 @@
-use borsh::{BorshSerialize};
+use borsh::BorshSerialize;
 use amqp_helpers::producer::retry_producer::RetryProducer;
 use eyre::Result;
-use ticketland_signdrop::model::NewUser;
+use ticketland_event_handler::{
+  models::account::DeleteAccountRequest,
+};
 
-pub struct NewUserQueue {
+pub struct DeleteAccountRequestQueue {
   producer: RetryProducer,
   exchange_name: String,
   routing_key: String,
 }
 
-impl NewUserQueue {
+impl DeleteAccountRequestQueue {
   pub async fn new(
     rabbitmq_uri: String,
     exchange_name: String,
     queue_name: String,
     routing_key: String,
     retry_ttl: u32,
+    delay_ms: Option<i32>,
   ) -> Self {
     let producer = RetryProducer::new(
       &rabbitmq_uri,
@@ -23,7 +26,7 @@ impl NewUserQueue {
       &queue_name,
       &routing_key,
       retry_ttl,
-      None,
+      delay_ms,
     ).await.unwrap();
 
     Self {
@@ -33,9 +36,9 @@ impl NewUserQueue {
     }
   }
 
-  pub async fn on_new_user(&self, sol_address: String) -> Result<()> {
-    let msg = NewUser { 
-      sol_address 
+  pub async fn on_new_delete_request(&self, uid: String) -> Result<()> {
+    let msg = DeleteAccountRequest {
+      uid
     };
 
     self.producer.publish(

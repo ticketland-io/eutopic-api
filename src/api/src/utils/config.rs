@@ -10,8 +10,9 @@ pub struct Config {
   pub exchange_name: String,
   pub queue_name: String,
   pub routing_key: String,
-  pub retry_ttl: u16,
+  pub retry_ttl: u32,
   pub enc_key: Vec<u8>,
+  pub account_deletion_delay_days: i64,
 }
 
 impl Config {
@@ -26,8 +27,9 @@ impl Config {
         exchange_name: env::var("EXCHANGE_NAME").unwrap(),
         queue_name: env::var("QUEUE_NAME").unwrap(),
         routing_key: env::var("ROUTING_KEY").unwrap(),
-        retry_ttl: env::var("RETRY_TTL").unwrap().parse::<u16>().unwrap(),
+        retry_ttl: env::var("RETRY_TTL").unwrap().parse::<u32>().unwrap(),
         enc_key: env::var("ENC_KEY").unwrap().as_bytes().to_vec(),
+        account_deletion_delay_days: env::var("ACCOUNT_DELETION_DELAY_DAYS").unwrap().parse::<i64>().unwrap(),
       }
     )
   }
