@@ -481,8 +481,8 @@ checksum = "7de8ce5e0f9f8d88245311066a578d72b7af3e7088f32783804676302df237e4"
 
 [[package]]
 name = "api-helpers"
-version = "0.3.25"
-source = "git+https://github.com/ticketland-io/common-rust#d1834b15bbe918e48b8cc02ecae9d1836f8b00fd"
+version = "0.3.26"
+source = "git+https://github.com/ticketland-io/common-rust#139fc68c7a876c9c0a3064e92a4c950ea8b1da3b"
 dependencies = [
  "actix",
  "actix-http",
@@ -497,7 +497,7 @@ dependencies = [
  "serde",
  "ticketland-core",
  "ticketland-crypto",
- "ticketland-data",
+ "ticketland-data 0.1.53",
  "tokio",
 ]
 
@@ -1262,6 +1262,12 @@ checksum = "26b52a9543ae338f279b96b0b9fed9c8093744685043739079ce85cd58f289a6"
 dependencies = [
  "cipher 0.4.4",
 ]
+
+[[package]]
+name = "cbor_event"
+version = "2.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "089a0261d1bc59e54e8e11860031efd88593f0e61b921172c474f1f38c2f2d3c"
 
 [[package]]
 name = "cc"
@@ -2193,6 +2199,7 @@ dependencies = [
  "amqp-helpers",
  "api-helpers",
  "borsh",
+ "chrono",
  "dotenv",
  "env_logger",
  "eyre",
@@ -2201,7 +2208,8 @@ dependencies = [
  "serde_qs",
  "ticketland-core",
  "ticketland-crypto",
- "ticketland-data",
+ "ticketland-data 0.1.55",
+ "ticketland-event-handler",
  "ticketland-signdrop",
 ]
 
@@ -2253,8 +2261,8 @@ checksum = "835a3dc7d1ec9e75e2b5fb4ba75396837112d2060b03f7d43bc1897c7f7211da"
 
 [[package]]
 name = "fireauth"
-version = "0.1.7"
-source = "git+https://github.com/Apocentre/fireauth#e37916743e7ec9da99657bfd27359a60d58e0298"
+version = "0.1.8"
+source = "git+https://github.com/Apocentre/fireauth#0440c1468ee00b32d545bdb417063045bfa5f214"
 dependencies = [
  "chrono",
  "reqwest",
@@ -2538,6 +2546,31 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8a9ee70c43aaf417c914396645a0fa852624801b24ebb7ae78fe8272889ac888"
 dependencies = [
  "ahash 0.7.6",
+]
+
+[[package]]
+name = "headers"
+version = "0.3.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f3e372db8e5c0d213e0cd0b9be18be2aca3d44cf2fe30a9d46a65581cd454584"
+dependencies = [
+ "base64 0.13.1",
+ "bitflags",
+ "bytes",
+ "headers-core",
+ "http",
+ "httpdate",
+ "mime",
+ "sha1 0.10.5",
+]
+
+[[package]]
+name = "headers-core"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e7f66481bfee273957b1f20485a4ff3362987f85b2c236580d81b4eb7a326429"
+dependencies = [
+ "http",
 ]
 
 [[package]]
@@ -3283,6 +3316,66 @@ dependencies = [
 ]
 
 [[package]]
+name = "mpl-token-auth-rules"
+version = "1.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "24dcb2b0ec0e9246f6f035e0336ba3359c21f6928dfd90281999e2c8e8ab53eb"
+dependencies = [
+ "borsh",
+ "mpl-token-metadata-context-derive",
+ "num-derive",
+ "num-traits",
+ "rmp-serde",
+ "serde",
+ "shank",
+ "solana-program",
+ "solana-zk-token-sdk",
+ "thiserror",
+]
+
+[[package]]
+name = "mpl-token-metadata"
+version = "1.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "aed414104154928aa995a44a0a474c449d04ce5a4ee6c975ad41c5d2912f0dfe"
+dependencies = [
+ "arrayref",
+ "borsh",
+ "mpl-token-auth-rules",
+ "mpl-token-metadata-context-derive",
+ "mpl-utils",
+ "num-derive",
+ "num-traits",
+ "shank",
+ "solana-program",
+ "spl-associated-token-account",
+ "spl-token",
+ "thiserror",
+]
+
+[[package]]
+name = "mpl-token-metadata-context-derive"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "12989bc45715b0ee91944855130131479f9c772e198a910c3eb0ea327d5bffc3"
+dependencies = [
+ "quote 1.0.26",
+ "syn 1.0.109",
+]
+
+[[package]]
+name = "mpl-utils"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "822133b6cba8f9a43e5e0e189813be63dd795858f54155c729833be472ffdb51"
+dependencies = [
+ "arrayref",
+ "borsh",
+ "solana-program",
+ "spl-token",
+]
+
+[[package]]
 name = "multiaddr"
 version = "0.17.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3376,6 +3469,16 @@ checksum = "d273983c5a657a70a3e8f2a01329822f3b8c8172b73826411a55751e404a0a4a"
 dependencies = [
  "memchr",
  "minimal-lexical",
+]
+
+[[package]]
+name = "nu-ansi-term"
+version = "0.46.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "77a8165726e8236064dbb45459242600304b42a5ea24ee2948e18e023bf7ba84"
+dependencies = [
+ "overload",
+ "winapi",
 ]
 
 [[package]]
@@ -3598,6 +3701,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9b7820b9daea5457c9f21c69448905d723fbd21136ccf521748f23fd49e723ee"
 
 [[package]]
+name = "overload"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b15813163c1d831bf4a13c3610c05c0d03b39feb07f7e09fa234dac9b15aaf39"
+
+[[package]]
 name = "p12"
 version = "0.6.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3657,6 +3766,12 @@ name = "paste"
 version = "1.0.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9f746c4065a8fa3fe23974dd82f15431cc8d40779821001404d10d2e79ca7d79"
+
+[[package]]
+name = "pathdiff"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8835116a5c179084a830efb3adc117ab007512b535bc1a21c991d3b32a6b44dd"
 
 [[package]]
 name = "pbkdf2"
@@ -3965,6 +4080,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1d0e1ae9e836cc3beddd63db0df682593d7e2d3d891ae8c9083d2113e1744224"
 dependencies = [
  "unicode-ident",
+]
+
+[[package]]
+name = "program-artifacts"
+version = "0.1.36"
+source = "git+https://github.com/ticketland-io/program-artifacts#67db0edf83e8dbd62e0c1e2e3804e768c047bdd1"
+dependencies = [
+ "borsh",
+ "eyre",
+ "solana-sdk",
+ "solana-web3-rust",
 ]
 
 [[package]]
@@ -4342,6 +4468,28 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3582f63211428f83597b51b2ddb88e2a91a9d52d12831f9d08f5e624e8977422"
 
 [[package]]
+name = "rmp"
+version = "0.8.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "44519172358fd6d58656c86ab8e7fbc9e1490c3e8f14d35ed78ca0dd07403c9f"
+dependencies = [
+ "byteorder",
+ "num-traits",
+ "paste",
+]
+
+[[package]]
+name = "rmp-serde"
+version = "1.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c5b13be192e0220b8afb7222aa5813cb62cc269ebb5cac346ca6487681d2913e"
+dependencies = [
+ "byteorder",
+ "rmp",
+ "serde",
+]
+
+[[package]]
 name = "rpassword"
 version = "7.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4350,6 +4498,15 @@ dependencies = [
  "libc",
  "rtoolbox",
  "winapi",
+]
+
+[[package]]
+name = "rs_merkle"
+version = "1.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c6f31bfb6a1af3da134ff6aebc10c7ef10c4c6b215b099873846c56478d2723c"
+dependencies = [
+ "sha2 0.10.6",
 ]
 
 [[package]]
@@ -4841,6 +4998,49 @@ checksum = "bdf0c33fae925bdc080598b84bc15c55e7b9a4a43b3c704da051f977469691c9"
 dependencies = [
  "digest 0.10.6",
  "keccak",
+]
+
+[[package]]
+name = "shank"
+version = "0.0.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b63e565b5e95ad88ab38f312e89444c749360641c509ef2de0093b49f55974a5"
+dependencies = [
+ "shank_macro",
+]
+
+[[package]]
+name = "shank_macro"
+version = "0.0.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "63927d22a1e8b74bda98cc6e151fcdf178b7abb0dc6c4f81e0bbf5ffe2fc4ec8"
+dependencies = [
+ "proc-macro2 1.0.52",
+ "quote 1.0.26",
+ "shank_macro_impl",
+ "syn 1.0.109",
+]
+
+[[package]]
+name = "shank_macro_impl"
+version = "0.0.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "40ce03403df682f80f4dc1efafa87a4d0cb89b03726d0565e6364bdca5b9a441"
+dependencies = [
+ "anyhow",
+ "proc-macro2 1.0.52",
+ "quote 1.0.26",
+ "serde",
+ "syn 1.0.109",
+]
+
+[[package]]
+name = "sharded-slab"
+version = "0.1.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "900fba806f70c630b0a382d0d825e17a0f19fcd059a2ade1ff237bcddf446b31"
+dependencies = [
+ "lazy_static",
 ]
 
 [[package]]
@@ -5622,6 +5822,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "solana-web3-rust"
+version = "0.1.10"
+source = "git+https://github.com/ticketland-io/solana-web3-rust#e9cae9cf279a4bb67725a47138020b76c5b881a5"
+dependencies = [
+ "borsh",
+ "eyre",
+ "lazy_static",
+ "rs_merkle",
+ "solana-client",
+ "solana-sdk",
+ "spl-associated-token-account",
+]
+
+[[package]]
 name = "solana-zk-token-sdk"
 version = "1.15.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5921,9 +6135,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "thread_local"
+version = "1.1.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3fdd6f064ccff2d6567adcb3873ca630700f00b5ad3f060c25b5dcfd9a4ce152"
+dependencies = [
+ "cfg-if",
+ "once_cell",
+]
+
+[[package]]
 name = "ticketland-core"
 version = "0.2.18"
-source = "git+https://github.com/ticketland-io/common-rust#d1834b15bbe918e48b8cc02ecae9d1836f8b00fd"
+source = "git+https://github.com/ticketland-io/common-rust#139fc68c7a876c9c0a3064e92a4c950ea8b1da3b"
 dependencies = [
  "actix",
  "actix-multipart",
@@ -5955,7 +6179,7 @@ dependencies = [
 [[package]]
 name = "ticketland-crypto"
 version = "0.1.19"
-source = "git+https://github.com/ticketland-io/common-rust#d1834b15bbe918e48b8cc02ecae9d1836f8b00fd"
+source = "git+https://github.com/ticketland-io/common-rust#139fc68c7a876c9c0a3064e92a4c950ea8b1da3b"
 dependencies = [
  "aes-gcm-siv 0.11.1",
  "base64 0.13.1",
@@ -5973,8 +6197,8 @@ dependencies = [
 
 [[package]]
 name = "ticketland-data"
-version = "0.1.50"
-source = "git+https://github.com/ticketland-io/common-rust#d1834b15bbe918e48b8cc02ecae9d1836f8b00fd"
+version = "0.1.53"
+source = "git+https://github.com/ticketland-io/common-rust#139fc68c7a876c9c0a3064e92a4c950ea8b1da3b"
 dependencies = [
  "bigdecimal",
  "chrono",
@@ -5985,6 +6209,53 @@ dependencies = [
  "serde",
  "serde-aux",
  "serde_json",
+]
+
+[[package]]
+name = "ticketland-data"
+version = "0.1.55"
+dependencies = [
+ "bigdecimal",
+ "chrono",
+ "diesel",
+ "diesel-async",
+ "diesel_as_jsonb",
+ "eyre",
+ "serde",
+ "serde-aux",
+ "serde_json",
+]
+
+[[package]]
+name = "ticketland-event-handler"
+version = "0.1.25"
+source = "git+https://github.com/ticketland-io/ticketland-event-handler#1d436bc4d56960335a312c0020d22c29b9df002d"
+dependencies = [
+ "actix",
+ "actix-rt",
+ "amqp-helpers",
+ "async-trait",
+ "borsh",
+ "bytes",
+ "dotenv",
+ "eyre",
+ "futures",
+ "futures-util",
+ "lapin",
+ "mpl-token-metadata",
+ "program-artifacts",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "solana-sdk",
+ "solana-web3-rust",
+ "ticketland-core",
+ "ticketland-data 0.1.53",
+ "tokio",
+ "tokio-stream",
+ "tokio-util",
+ "tracing-subscriber",
+ "webbundle",
 ]
 
 [[package]]
@@ -6274,6 +6545,32 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "24eb03ba0eab1fd845050058ce5e616558e8f8d8fca633e6b163fe25c797213a"
 dependencies = [
  "once_cell",
+ "valuable",
+]
+
+[[package]]
+name = "tracing-log"
+version = "0.1.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "78ddad33d2d10b1ed7eb9d1f518a5674713876e97e5bb9b7345a7984fbb4f922"
+dependencies = [
+ "lazy_static",
+ "log",
+ "tracing-core",
+]
+
+[[package]]
+name = "tracing-subscriber"
+version = "0.3.17"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "30a651bc37f915e81f087d86e62a18eec5f79550c7faff886f7090b4ea757c77"
+dependencies = [
+ "nu-ansi-term",
+ "sharded-slab",
+ "smallvec",
+ "thread_local",
+ "tracing-core",
+ "tracing-log",
 ]
 
 [[package]]
@@ -6495,6 +6792,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "valuable"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "830b7e5d4d90034032940e4ace0d9a9a057e7a45cd94e6c007832e39edb82f6d"
+
+[[package]]
 name = "value-bag"
 version = "1.0.0-alpha.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6659,6 +6962,23 @@ checksum = "e33b99f4b23ba3eec1a53ac264e35a755f00e966e0065077d6027c0f575b0b97"
 dependencies = [
  "js-sys",
  "wasm-bindgen",
+]
+
+[[package]]
+name = "webbundle"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "501f873da4fb9c7fbf44fab8e5200ee62ec82afb16440cdc580073e55a0a6135"
+dependencies = [
+ "anyhow",
+ "cbor_event",
+ "headers",
+ "http",
+ "log",
+ "mime_guess",
+ "pathdiff",
+ "tokio",
+ "walkdir",
 ]
 
 [[package]]
