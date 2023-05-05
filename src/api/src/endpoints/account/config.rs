@@ -3,6 +3,7 @@ use super::{
   create_account,
   get_account,
   request_account_deletion,
+  cancel_account_deletion,
 };
 
 pub fn config(cfg: &mut web::ServiceConfig) {
@@ -11,5 +12,10 @@ pub fn config(cfg: &mut web::ServiceConfig) {
     .route(web::post().to(create_account::exec))
     .route(web::get().to(get_account::exec))
     .route(web::delete().to(request_account_deletion::exec))
+  );
+
+  cfg.service(
+    web::resource("/cancel-deletion")
+    .route(web::post().to(cancel_account_deletion::exec))
   );
 }
