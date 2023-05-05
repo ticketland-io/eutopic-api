@@ -15,7 +15,7 @@ pub fn config(cfg: &mut web::ServiceConfig) {
   );
 
   cfg.service(
-    web::resource("/cancel-deletion")
+    web::resource("/cancelled-deletions")
     .route(web::post().to(cancel_account_deletion::exec))
   );
 }
