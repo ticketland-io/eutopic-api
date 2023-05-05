@@ -2,7 +2,6 @@ use actix_web::{web, HttpResponse};
 use chrono::Utc;
 use serde::Deserialize;
 use ticketland_core::error::Error;
-// use ticketland_data::models::account::Account;
 use api_helpers::middleware::auth::AuthData;
 use crate::utils::store::Store;
 

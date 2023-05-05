@@ -15,7 +15,7 @@ impl NewUserQueue {
     exchange_name: String,
     queue_name: String,
     routing_key: String,
-    retry_ttl: u16,
+    retry_ttl: u32,
   ) -> Self {
     let producer = RetryProducer::new(
       &rabbitmq_uri,
@@ -41,7 +41,8 @@ impl NewUserQueue {
     self.producer.publish(
       &self.exchange_name,
       &self.routing_key,
-      &msg.try_to_vec().unwrap()
+      &msg.try_to_vec().unwrap(),
+      true,
     ).await
   }
 }
