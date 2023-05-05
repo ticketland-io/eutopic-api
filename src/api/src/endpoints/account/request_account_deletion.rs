@@ -17,9 +17,10 @@ pub async fn exec(
 ) -> Result<HttpResponse, Error> {
   let uid = auth.user.local_id.clone();
   let delete_request = qs.delete_request;
-
   let mut postgres = store.pg_pool.connection().await?;
+
   if let Ok(account) = postgres.read_account_by_id(uid.clone()).await {
+
     // If delete_request_at is present in account, a new one can't be requested
     if account.delete_request_at.is_some() && delete_request {
       return Ok(HttpResponse::BadRequest().finish())
