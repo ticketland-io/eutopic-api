@@ -48,7 +48,7 @@ pub async fn exec(
     }).await?;
 
     // Push message to Rabbitmq
-    store.new_user_queue.on_new_user(body.pubkey.clone()).await?;
+    // store.new_user_queue.on_new_user(body.pubkey.clone()).await?;
   
     return Ok(HttpResponse::Created().finish())
   };
